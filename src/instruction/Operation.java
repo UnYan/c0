@@ -16,4 +16,5 @@ public enum Operation {
     public int getI(){
         return i;
     }
+
 }

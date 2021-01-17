@@ -12,16 +12,16 @@ public class FnInstruction {
 
     @Override
     public String toString() {
-        String out=
-                "name=" + name +
-                ", ret_slots=" + ret_slots +
-                ", param_slots=" + param_slots +
-                ", loc_slots=" + loc_slots +
-                ", bodyCount=" + bodyCount +"\n";
+        StringBuilder out =
+                new StringBuilder("name=" + name +
+                        ", ret_slots=" + ret_slots +
+                        ", param_slots=" + param_slots +
+                        ", loc_slots=" + loc_slots +
+                        ", bodyCount=" + bodyCount + "\n");
         for (Instruction instruction : bodyItem) {
-            out+=instruction.toString()+"\n";
+            out.append(instruction.toString()).append("\n");
         }
-        return out;
+        return out.toString();
     }
 
     public FnInstruction() {

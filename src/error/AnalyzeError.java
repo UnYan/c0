@@ -19,6 +19,7 @@ public class AnalyzeError extends CompileError {
     }
 
     /**
+     * @param errorToken
      * @param code
      * @param pos
      */

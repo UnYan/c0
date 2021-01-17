@@ -1,7 +1,6 @@
 package error;
 
 import util.Pos;
-import util.Pos;
 
 public abstract class CompileError extends Exception {
 

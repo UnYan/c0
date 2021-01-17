@@ -1,7 +1,5 @@
 package instruction;
 
-import java.util.Objects;
-
 public class Instruction {
     private Operation opt;
     private Object value;

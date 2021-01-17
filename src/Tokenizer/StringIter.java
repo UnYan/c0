@@ -1,10 +1,10 @@
 package Tokenizer;
 
+import util.Pos;
+
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
-
-import util.Pos;
 
 /**
  * 这是一个从 C++ 版本抄过来的字符迭代器
@@ -41,7 +41,9 @@ public class StringIter {
             return;
         }
         while (scanner.hasNext()) {
-            linesBuffer.add(scanner.nextLine() + '\n');
+            String line = scanner.nextLine();
+            linesBuffer.add(line + '\n');
+            System.out.println(line);
         }
         // todo:check read \n?
         initialized = true;
@@ -57,7 +59,7 @@ public class StringIter {
     // currentPos() = (0, 9)
     // previousPos() = (0, 8)
     // nextChar() = '\n' 并且指针移动到 (1, 0)
-    // unreadLast() 指针移动到 (0, 8)
+    // peekChar() = '\n' 并且指针不移动
     /**
      * 获取下一个字符的位置
      */
@@ -95,16 +97,15 @@ public class StringIter {
      * 将指针指向下一个字符，并返回当前字符
      */
     public char nextChar() {
+        char ch;
         if (this.peeked.isPresent()) {
-            char ch = this.peeked.get();
+            ch = this.peeked.get();
             this.peeked = Optional.empty();
-            this.ptr = ptrNext;
-            return ch;
         } else {
-            char ch = this.getNextChar();
-            this.ptr = ptrNext;
-            return ch;
+            ch = this.getNextChar();
         }
+        this.ptr = ptrNext;
+        return ch;
     }
 
     private char getNextChar() {

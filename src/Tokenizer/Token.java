@@ -1,7 +1,5 @@
 package Tokenizer;
 
-import Tokenizer.TokenType;
-import error.TokenizeError;
 import util.Pos;
 
 import java.util.Objects;
@@ -42,12 +40,12 @@ public class Token {
         return Objects.hash(tokenType, value, startPos, endPos);
     }
 
-//    public String getValueString() {
-//        if (value instanceof Integer || value instanceof String || value instanceof Character) {
-//            return value.toString();
-//        }
-//        throw new Error("No suitable cast for token value.");
-//    }
+    public String getValueString() {
+        if (value instanceof Integer || value instanceof String || value instanceof Character) {
+            return value.toString();
+        }
+        throw new Error("No suitable cast for token value.");
+    }
 
     public TokenType getTokenType() {
         return tokenType;
@@ -83,7 +81,7 @@ public class Token {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
+        var sb = new StringBuilder();
         sb.append("Line: ").append(this.startPos.row).append(' ');
         sb.append("Column: ").append(this.startPos.col).append(' ');
         sb.append("Type: ").append(this.tokenType).append(' ');

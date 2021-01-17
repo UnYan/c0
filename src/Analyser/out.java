@@ -1,11 +1,13 @@
 package Analyser;
 
+
 import instruction.FnInstruction;
 import instruction.Instruction;
 import instruction.Operation;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 
 public class out {
@@ -16,42 +18,40 @@ public class out {
 
         file.write(intToByte(globalV.size()));
 
-        for(int i = 0; i < globalV.size(); i ++){ //全局
-            if(globalV.get(i)=="1"){
+        for (String s : globalV) { //全局
+            if (s.equals("1")) {
                 file.write(0);
                 file.write(intToByte(8));
                 file.write(longToByte(0L));
-            }else if(globalV.get(i) == "0"){
+            } else if (s.equals("0")) {
                 file.write(1);
                 file.write(intToByte(8));
                 file.write(longToByte(0L));
-            }
-            else{ //函数名、字符串
+            } else { //函数名、字符串
                 file.write(1);
-                file.write(globalV.get(i).length());
-                file.write(globalV.get(i).getBytes());
+                file.write(s.length());
+                file.write(s.getBytes());
             }
         }
 
         file.write(intToByte(fnList.size()));// functions.count
 
-        for(int i = 0; i < fnList.size(); i ++){ //function
-            file.write(intToByte(fnList.get(i).getName()));
-            file.write(intToByte(fnList.get(i).getRet_slots()));
-            file.write(intToByte(fnList.get(i).getParam_slots()));
-            file.write(intToByte(fnList.get(i).getLoc_slots()));
-            file.write(intToByte(fnList.get(i).getBodyCount()));
+        for (FnInstruction fnInstruction : fnList) { //function
+            file.write(intToByte(fnInstruction.getName()));
+            file.write(intToByte(fnInstruction.getRet_slots()));
+            file.write(intToByte(fnInstruction.getParam_slots()));
+            file.write(intToByte(fnInstruction.getLoc_slots()));
+            file.write(intToByte(fnInstruction.getBodyCount()));
 
-            ArrayList<Instruction> fninstructions = fnList.get(i).getBodyItem();
+            ArrayList<Instruction> fnInstructions = fnInstruction.getBodyItem();
 
-            for(int j = 0; j < fninstructions.size(); j ++){
-                file.write(fninstructions.get(j).getOpt().getI());
-                if(fninstructions.get(j).getValue() != null){ //有操作数
-                    if(fninstructions.get(j).getOpt() == Operation.push){ //是push
-                        file.write(longToByte((long)fninstructions.get(j).getValue()));
-                    }
-                    else{
-                        file.write(intToByte((int)fninstructions.get(j).getValue()));
+            for (Instruction instruction : fnInstructions) {
+                file.write(instruction.getOpt().getI());
+                if (instruction.getValue() != null) {
+                    if (instruction.getOpt() == Operation.push) {
+                        file.write(longToByte((long) instruction.getValue()));
+                    } else {
+                        file.write(intToByte((int) instruction.getValue()));
                     }
                 }
             }

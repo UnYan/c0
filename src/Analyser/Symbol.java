@@ -6,11 +6,11 @@ import java.util.ArrayList;
 
 public class Symbol {
     private String name;
-    private int chain=-1;
+    private int chain = -1;
     private TokenType type;
-    private boolean isConst=false;
-    private boolean isFn=false;
-    private ArrayList<TokenType> params=null;
+    private boolean isConst = false;
+    private boolean isFn = false;
+    private ArrayList<TokenType> params = null;
     private SymbolType symbolType;
     private int fnoffset;
     private int offset;
@@ -24,7 +24,7 @@ public class Symbol {
         this.offset = offset;
     }
 
-    public Symbol(String name,boolean isFn, int offset, int fnoffset) {
+    public Symbol(String name, boolean isFn, int offset, int fnoffset) {
         this.name = name;
         this.isFn = isFn;
         this.params = new ArrayList<TokenType>();
