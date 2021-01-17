@@ -1027,12 +1027,12 @@ public final class Analyser {
             symbolInt.push(symbolTable.size());
         }
 
-        if(!hasReturn){
-            hasReturn = analyseStatement(tyTokenType, isWhile, breakEndPos, continuePos);//进入stmt循环分析
-        }
-        else{
-            analyseStatement(tyTokenType, isWhile, breakEndPos, continuePos); //进入stmt循环分析
-        }
+//        if(!hasReturn){
+//            hasReturn = analyseStatement(tyTokenType, isWhile, breakEndPos, continuePos);//进入stmt循环分析
+//        }
+//        else{
+//            analyseStatement(tyTokenType, isWhile, breakEndPos, continuePos); //进入stmt循环分析
+//        }
 
         while(nextIsStmt()){
             if(!hasReturn){
@@ -1241,7 +1241,7 @@ public final class Analyser {
                 }
                 Symbol symbol = symbolTable.get(index);
 
-                if(symbol.getSymbolType() == SymbolType.global){ //取地址
+                if(symbol.getSymbolType() == SymbolType.global){
                     CurrentFnInstruction.add(new Instruction(Operation.globa, symbol.getOffset()));
                 }else if(symbol.getSymbolType() == SymbolType.local){
                     CurrentFnInstruction.add(new Instruction(Operation.loca, symbol.getOffset()));
